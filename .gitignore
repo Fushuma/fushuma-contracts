@@ -1,0 +1,33 @@
+# Compiler files
+cache/
+out/
+*.swp
+*.swo
+
+# Dotenv file
+.env
+
+# Node modules
+node_modules/
+
+# Foundry
+lib/
+broadcast/
+deployments/
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Deployment artifacts
+deployment-info.json
+*.log
+
+# Test coverage
+coverage/
+lcov.info
