@@ -31,3 +31,7 @@ deployment-info.json
 # Test coverage
 coverage/
 lcov.info
+
+# Governance deployment credentials (NEVER COMMIT)
+.env.governance
+*.env.governance

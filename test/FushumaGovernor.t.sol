@@ -2,8 +2,8 @@
 pragma solidity ^0.8.22;
 
 import "forge-std/Test.sol";
-import "../src/FushumaGovernor.sol";
-import "../src/GovernanceCouncil.sol";
+import "../contracts/governance/FushumaGovernor.sol";
+import "../contracts/governance/GovernanceCouncil.sol";
 
 /**
  * @title FushumaGovernorTest

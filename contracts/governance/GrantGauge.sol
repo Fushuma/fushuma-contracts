@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.19;
 
 import "./Gauge.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
 
 /**
  * @title GrantGauge
@@ -9,6 +10,7 @@ import "./Gauge.sol";
  * @dev Extends base Gauge with grant-specific functionality
  */
 contract GrantGauge is Gauge {
+    using SafeERC20Upgradeable for IERC20Upgradeable;
     /// @notice Grant information
     struct Grant {
         address recipient;

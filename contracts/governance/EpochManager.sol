@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import "@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 
 /**
  * @title EpochManager
@@ -18,7 +18,7 @@ contract EpochManager is Initializable, AccessControlUpgradeable, PausableUpgrad
     uint256 public constant VOTING_DURATION = 7 days;
     
     /// @notice Duration of distribution period (1 day)
-    uint256 public constant DISTRIBUTION_DURATION = 1 day;
+    uint256 public constant DISTRIBUTION_DURATION = 1 days;
     
     /// @notice Admin role for epoch management
     bytes32 public constant EPOCH_ADMIN_ROLE = keccak256("EPOCH_ADMIN_ROLE");

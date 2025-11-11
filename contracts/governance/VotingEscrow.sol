@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.22;
+pragma solidity ^0.8.19;
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
@@ -8,8 +8,8 @@ import {ERC721EnumerableUpgradeable} from "@openzeppelin/contracts-upgradeable/t
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import {AccessControlUpgradeable} from "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
-import {ReentrancyGuardUpgradeable} from "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol";
-import {PausableUpgradeable} from "@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol";
+import {ReentrancyGuardUpgradeable} from "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
+import {PausableUpgradeable} from "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 
 /**
  * @title VotingEscrow
@@ -170,7 +170,7 @@ contract VotingEscrow is
      * @param _amount Additional amount to lock
      */
     function increaseAmount(uint256 _tokenId, uint256 _amount) external nonReentrant whenNotPaused {
-        if (!_isAuthorized(_ownerOf(_tokenId), msg.sender, _tokenId)) revert NotOwnerOrApproved();
+        if (!_isApprovedOrOwner(msg.sender, _tokenId)) revert NotOwnerOrApproved();
         
         LockedBalance storage lock = locked[_tokenId];
         if (lock.inExitQueue) revert AlreadyInExitQueue();
@@ -190,7 +190,7 @@ contract VotingEscrow is
      * @param _tokenId ID of the veNFT
      */
     function startExit(uint256 _tokenId) external nonReentrant {
-        if (!_isAuthorized(_ownerOf(_tokenId), msg.sender, _tokenId)) revert NotOwnerOrApproved();
+        if (!_isApprovedOrOwner(msg.sender, _tokenId)) revert NotOwnerOrApproved();
         
         LockedBalance storage lock = locked[_tokenId];
         if (lock.inExitQueue) revert AlreadyInExitQueue();
@@ -207,7 +207,7 @@ contract VotingEscrow is
      */
     function completeExit(uint256 _tokenId) external nonReentrant {
         address owner = _ownerOf(_tokenId);
-        if (!_isAuthorized(owner, msg.sender, _tokenId)) revert NotOwnerOrApproved();
+        if (!_isApprovedOrOwner(msg.sender, _tokenId)) revert NotOwnerOrApproved();
         
         LockedBalance storage lock = locked[_tokenId];
         if (!lock.inExitQueue) revert NotInExitQueue();
@@ -290,7 +290,7 @@ contract VotingEscrow is
      */
     function isApprovedOrOwner(address _spender, uint256 _tokenId) external view returns (bool) {
         address owner = _ownerOf(_tokenId);
-        return _isAuthorized(owner, _spender, _tokenId);
+        return _isApprovedOrOwner(_spender, _tokenId);
     }
 
     /**
