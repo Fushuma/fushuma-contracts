@@ -1,0 +1,124 @@
+{
+  "network": "Fushuma zkEVM+ Mainnet",
+  "chainId": 121224,
+  "rpcUrl": "https://rpc.fushuma.com",
+  "explorer": "https://fumascan.com",
+  "deploymentDate": "2025-11-11",
+  "deployer": "0xf4C3914B127571fDfDdB3B5caCE6a9428DB0183b",
+  "admin": "0xC8e420222d4c93355776eD77f9A34757fb6f3eea",
+  
+  "contracts": {
+    "WFUMA": {
+      "address": "0xBcA7B11c788dBb85bE92627ef1e60a2A9B7e2c6E",
+      "type": "token",
+      "status": "pre-existing",
+      "note": "Wrapped FUMA token, deployed before governance system"
+    },
+    
+    "VotingEscrow": {
+      "proxy": "0x80Ebf301efc7b0FF1825dC3B4e8d69e414eaa26f",
+      "implementation": "0x9aEBd5f1c7bE7b3Fb0a3F4E0f2e5D8c4e9f174b6",
+      "type": "governance",
+      "status": "operational",
+      "verified": true,
+      "config": {
+        "minDeposit": "100000000000000000000",
+        "warmupPeriod": 604800,
+        "cooldownPeriod": 1209600,
+        "maxLockDuration": 31536000,
+        "maxMultiplier": 4
+      }
+    },
+    
+    "EpochManager": {
+      "proxy": "0x36C3b4EA7dC2622b8C63a200B60daC0ab2d8f453",
+      "implementation": "0xBa9E9DE338c4eE2Bc92B45678840C6e95e8faEd9",
+      "type": "governance",
+      "status": "operational",
+      "verified": true,
+      "config": {
+        "epochDuration": 1209600,
+        "startTime": 1762879180,
+        "currentEpoch": 0
+      }
+    },
+    
+    "GovernanceCouncil": {
+      "proxy": "0x92bCcdcae7B73A5332429e517D26515D447e9997",
+      "implementation": "0x037F00aa81Fd2af56667A5d34d79db8C2b7AEc69",
+      "type": "governance",
+      "status": "operational",
+      "verified": true,
+      "config": {
+        "requiredApprovals": 2,
+        "totalMembers": 3,
+        "members": [
+          "0xC8e420222d4c93355776eD77f9A34757fb6f3eea",
+          "0x7152B9A7BD708750892e577Fcc96ea24FDDF37a4",
+          "0x45FAc82b24511927a201C2cdFC506625dECe3d22"
+        ]
+      }
+    },
+    
+    "FushumaGovernor": {
+      "proxy": "0xF36107b3AA203C331284E5A467C1c58bDD5b591D",
+      "implementation": "0x852f85af952C3213C4Ef8b51fE2719b8f2F28230",
+      "type": "governance",
+      "status": "operational",
+      "verified": true,
+      "config": {
+        "proposalThreshold": "1000000000000000000000",
+        "quorumBps": 1000,
+        "votingPeriod": 604800,
+        "votingDelay": 86400,
+        "timelockDelay": 172800
+      }
+    },
+    
+    "GaugeController": {
+      "proxy": "0x41E7ba36C43CCd4b83a326bB8AEf929e109C9466",
+      "implementation": "0x89110F9Ca8F79fB78D8f22a7abBc7eaA07FFfBce",
+      "type": "governance",
+      "status": "operational",
+      "verified": true,
+      "config": {
+        "votingEscrow": "0x80Ebf301efc7b0FF1825dC3B4e8d69e414eaa26f",
+        "epochManager": "0x36C3b4EA7dC2622b8C63a200B60daC0ab2d8f453",
+        "gaugeCount": 0
+      }
+    },
+    
+    "GrantGauge": {
+      "proxy": "0x48Ec52aC4A8154141D95fF3d7bE7057A37908724",
+      "implementation": "0xFB3bA9407F475313589EE324b645A3552A9D2702",
+      "type": "gauge",
+      "status": "needs-setup",
+      "verified": false,
+      "note": "Proxy deployed but needs manual registration and initialization. See GRANTGAUGE_MANUAL_SETUP.md",
+      "config": {
+        "gaugeId": null,
+        "name": "Fushuma Grant Gauge",
+        "type": "grant"
+      }
+    }
+  },
+  
+  "abis": {
+    "note": "ABIs can be found in /out directory after compilation",
+    "VotingEscrow": "out/VotingEscrow.sol/VotingEscrow.json",
+    "EpochManager": "out/EpochManager.sol/EpochManager.json",
+    "GovernanceCouncil": "out/GovernanceCouncil.sol/GovernanceCouncil.json",
+    "FushumaGovernor": "out/FushumaGovernor.sol/FushumaGovernor.json",
+    "GaugeController": "out/GaugeController.sol/GaugeController.json",
+    "GrantGauge": "out/GrantGauge.sol/GrantGauge.json",
+    "MinimalProxy": "out/MinimalProxy.sol/MinimalProxy.json"
+  },
+  
+  "deploymentNotes": [
+    "OpenZeppelin standard proxies (ERC1967, TransparentUpgradeable) are incompatible with Fushuma zkEVM+",
+    "Created custom MinimalProxy contract for upgradeable pattern",
+    "All contracts compiled with Solidity 0.8.19 to avoid MCOPY opcode issues",
+    "GrantGauge requires manual setup - see GRANTGAUGE_MANUAL_SETUP.md",
+    "Private key used for deployment should be rotated immediately after GrantGauge setup"
+  ]
+}
