@@ -49,35 +49,105 @@ Standard tokens available for payments and trading.
 - **Purpose**: Stablecoin for payments and trading
 - **Explorer**: [View on Explorer](https://explorer.fushuma.com/address/0x1e11d176117dbEDbd234b1c6a10C6eb8dceD275e)
 
-### DeFi Infrastructure - FumaSwap V4 (Infinity)
+## Governance Infrastructure 🔄 READY TO DEPLOY
 
-#### Core Token 🔄 READY TO DEPLOY
+### Core Governance Contracts
+
+**FushumaGovernor**
+- **Address**: `TBD - Ready for deployment`
+- **Status**: 🔄 Code ready, awaiting deployment
+- **Purpose**: Main governance contract with veNFT-based voting
+- **Location**: `contracts/governance/FushumaGovernor.sol`
+- **Priority**: 🟡 Medium
+- **Features**:
+  - veNFT-based voting power
+  - Proposal creation and voting
+  - Timelock execution
+  - Council integration
+
+**GovernanceCouncil**
+- **Address**: `TBD - Ready for deployment`
+- **Status**: 🔄 Code ready, awaiting deployment
+- **Purpose**: Council with veto and speedup powers for governance oversight
+- **Location**: `contracts/governance/GovernanceCouncil.sol`
+- **Priority**: 🟡 Medium
+- **Features**:
+  - Multi-signature veto mechanism
+  - Proposal speedup capabilities
+  - Emergency governance controls
+
+### Vote-Escrowed NFT System
+
+**VotingEscrow**
+- **Address**: `TBD - Ready for deployment`
+- **Status**: 🔄 Code ready, awaiting deployment
+- **Purpose**: Vote-escrowed NFT for governance participation
+- **Location**: `contracts/governance/VotingEscrow.sol`
+- **Priority**: 🟡 Medium
+- **Features**:
+  - Lock FUMA tokens for voting power
+  - NFT representation of locked positions
+  - Longer locks = more voting power
+
+**VotingEscrowV2**
+- **Address**: `TBD - Ready for deployment`
+- **Status**: 🔄 Code ready, awaiting deployment
+- **Purpose**: Enhanced vote-escrowed NFT with additional features
+- **Location**: `contracts/governance/VotingEscrowV2.sol`
+- **Priority**: 🟡 Medium
+
+### Epoch and Gauge Management
+
+**EpochManager**
+- **Address**: `TBD - Ready for deployment`
+- **Status**: 🔄 Code ready, awaiting deployment
+- **Purpose**: Manages governance epochs and time periods
+- **Location**: `contracts/governance/EpochManager.sol`
+- **Priority**: 🟡 Medium
+
+**GaugeController**
+- **Address**: `TBD - Ready for deployment`
+- **Status**: 🔄 Code ready, awaiting deployment
+- **Purpose**: Controls gauge weights for incentive distribution
+- **Location**: `contracts/governance/GaugeController.sol`
+- **Priority**: 🟡 Medium
+
+**Gauge**
+- **Address**: `TBD - Ready for deployment`
+- **Status**: 🔄 Code ready, awaiting deployment
+- **Purpose**: Standard gauge implementation for incentives
+- **Location**: `contracts/governance/Gauge.sol`
+- **Priority**: 🟡 Medium
+
+**GrantGauge**
+- **Address**: `TBD - Ready for deployment`
+- **Status**: 🔄 Code ready, awaiting deployment
+- **Purpose**: Specialized gauge for development grant allocation
+- **Location**: `contracts/governance/GrantGauge.sol`
+- **Priority**: 🟡 Medium
+
+## DeFi Infrastructure - FumaSwap V4 (Infinity)
+
+### Core Token 🔄 STATUS UNKNOWN
 
 **WFUMA (Wrapped FUMA)**
-- **Address**: `TBD - Ready for deployment`
-- **Status**: 🔄 Contract ready, awaiting deployment
+- **Address**: `TBD - Please provide if already deployed`
+- **Status**: 🔄 Code ready, deployment status unknown
 - **Purpose**: Wrapped version of native FUMA for DeFi trading
 - **Implementation**: Standard WETH9 adapted for FUMA
-- **Priority**: 🔴 Critical - Must be deployed first
+- **Location**: `contracts/tokens/WFUMA.sol`
+- **Priority**: 🔴 Critical - Must be deployed before DeFi contracts
 
-#### Standard Contracts ⚠️ VERIFICATION NEEDED
+### Core DeFi Contracts 📋 PENDING IMPLEMENTATION
 
-**Permit2**
-- **Canonical Address**: `0x000000000022D473030F116dDEE9F6B43aC78BA3`
-- **Status**: ⚠️ Needs verification on Fushuma Network
-- **Purpose**: Universal token approval system
-- **Action Required**: Check if exists, deploy if missing
-
-#### Core DeFi Contracts 📋 PENDING IMPLEMENTATION
-
-These contracts require the official FumaSwap V4 (or adapted PancakeSwap V4) implementation.
+These contracts require the FumaSwap V4 (or adapted PancakeSwap V4) implementation.
 
 **Vault**
 - **Address**: `TBD`
 - **Status**: 📋 Awaiting implementation
 - **Purpose**: Core liquidity vault for all pools
 - **Priority**: 🔴 Critical
-- **Dependencies**: WFUMA, Permit2
+- **Dependencies**: WFUMA
 
 **CLPoolManager (Concentrated Liquidity Pool Manager)**
 - **Address**: `TBD`
@@ -93,7 +163,7 @@ These contracts require the official FumaSwap V4 (or adapted PancakeSwap V4) imp
 - **Priority**: 🟡 Medium (Optional)
 - **Dependencies**: Vault
 
-#### Periphery Contracts 📋 PENDING IMPLEMENTATION
+### Periphery Contracts 📋 PENDING IMPLEMENTATION
 
 User-facing contracts for interacting with the core protocol.
 
@@ -125,25 +195,7 @@ User-facing contracts for interacting with the core protocol.
 - **Priority**: 🟠 High
 - **Dependencies**: All pool managers
 
-#### Governance Contracts 📋 PENDING IMPLEMENTATION
-
-Protocol governance and fee management.
-
-**CLProtocolFeeController**
-- **Address**: `TBD`
-- **Status**: 📋 Awaiting implementation
-- **Purpose**: Controls protocol fee collection and distribution
-- **Priority**: 🟡 Medium
-- **Dependencies**: CLPoolManager
-
-**CLPoolManagerOwner**
-- **Address**: `TBD`
-- **Status**: 📋 Awaiting implementation
-- **Purpose**: Administrative control over pool managers
-- **Priority**: 🟡 Medium
-- **Dependencies**: CLPoolManager
-
-#### Custom Hooks 📋 PENDING DEVELOPMENT
+### Custom Hooks 📋 PENDING DEVELOPMENT
 
 Custom features specific to Fushuma Network.
 
@@ -172,12 +224,12 @@ Custom features specific to Fushuma Network.
 | **Launchpad** | 2 | 2 | 0 | 0 | 100% ✅ |
 | **Bridge** | 1 | 1 | 0 | 0 | 100% ✅ |
 | **Payment Tokens** | 2 | 2 | 0 | 0 | 100% ✅ |
-| **Core Tokens** | 1 | 0 | 1 | 0 | 0% 🔄 |
+| **Governance** | 8 | 0 | 8 | 0 | 0% 🔄 |
+| **Core Tokens** | 1 | ? | 1 | 0 | ?% 🔄 |
 | **Core DeFi** | 3 | 0 | 0 | 3 | 0% 📋 |
 | **Periphery** | 4 | 0 | 0 | 4 | 0% 📋 |
-| **Governance** | 2 | 0 | 0 | 2 | 0% 📋 |
 | **Hooks** | 2 | 0 | 0 | 2 | 0% 📋 |
-| **TOTAL** | 17 | 5 | 1 | 11 | 29% |
+| **TOTAL** | 23 | 5 | 9 | 9 | 22% |
 
 ### By Priority
 
@@ -185,28 +237,27 @@ Custom features specific to Fushuma Network.
 |----------|-------|--------|----------|
 | 🔴 Critical | 4 | 1 ready, 3 pending | Week 1-2 |
 | 🟠 High | 4 | All pending | Week 2-3 |
-| 🟡 Medium | 4 | All pending | Week 3-4 |
+| 🟡 Medium | 10 | 8 ready, 2 pending | Week 3-4 |
 | ✅ Complete | 5 | All deployed | Done |
 
 ## Next Steps
 
 ### Immediate Actions (This Week)
 
-1. **Deploy WFUMA**
-   - Contract is ready in `contracts/tokens/WFUMA.sol`
-   - Deployment script available: `scripts/deploy-wfuma.sh`
-   - Estimated gas: ~1,000,000
-   - Priority: 🔴 Critical
+1. **Clarify WFUMA Status**
+   - Determine if WFUMA is already deployed
+   - If deployed, obtain and document address
+   - If not deployed, use provided contract and deployment script
 
-2. **Verify Permit2**
-   - Check if canonical address exists on Fushuma
-   - Deploy if missing
-   - Priority: 🔴 Critical
+2. **Deploy Governance Contracts** (Optional)
+   - All governance contracts are ready to deploy
+   - See `docs/GOVERNANCE_DEPLOYMENT.md` for instructions
+   - Priority: Medium (not blocking DeFi deployment)
 
 ### Short-term Actions (Next 2-4 Weeks)
 
 3. **Implement Core DeFi Contracts**
-   - Source from FumaSwap V4 or adapt PancakeSwap V4
+   - Source from FumaSwap V4 repositories
    - Review and test thoroughly
    - Deploy to testnet first
    - Priority: 🔴 Critical
@@ -250,25 +301,6 @@ After deployment, update these files with contract addresses:
 - `deployment-info.json`
 - `.env`
 
-## Monitoring and Verification
-
-All deployed contracts should be:
-
-1. **Verified on Block Explorer**
-   - Source code published
-   - Constructor arguments verified
-   - Read/write functions accessible
-
-2. **Monitored**
-   - Transaction monitoring active
-   - Balance tracking enabled
-   - Alert systems configured
-
-3. **Documented**
-   - Deployment date recorded
-   - Deployer address documented
-   - Initial configuration saved
-
 ## Support
 
 For questions or issues:
@@ -280,5 +312,5 @@ For questions or issues:
 ---
 
 **Last Updated**: November 11, 2025  
-**Version**: 1.0  
-**Next Review**: After WFUMA deployment
+**Version**: 2.0  
+**Changes**: Added governance contracts from fushuma-governance-hub repository

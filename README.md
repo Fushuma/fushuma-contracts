@@ -7,9 +7,9 @@ Production-ready smart contracts for the Fushuma Network ecosystem, including De
 This repository contains all smart contracts that power the Fushuma Network platform:
 
 - **DeFi (FumaSwap V4)**: Core DEX contracts for trading and liquidity provision
+- **Governance**: On-chain governance with vote-escrowed NFTs and council oversight
 - **Launchpad**: Token launch and vesting contracts (already deployed)
 - **Bridge**: Cross-chain bridge contracts (already deployed)
-- **Governance**: On-chain governance infrastructure (future)
 - **Tokens**: Wrapped tokens and standard implementations
 
 ## Repository Structure
@@ -19,7 +19,7 @@ fushuma-contracts/
 ├── contracts/
 │   ├── core/           # Core DeFi contracts (Vault, Pool Managers)
 │   ├── periphery/      # User-facing contracts (Routers, Quoters)
-│   ├── governance/     # Protocol governance contracts
+│   ├── governance/     # Governance contracts (Governor, Council, VotingEscrow)
 │   ├── hooks/          # Custom hook implementations
 │   └── tokens/         # Token contracts (WFUMA, etc.)
 ├── scripts/            # Deployment and management scripts
@@ -41,8 +41,18 @@ fushuma-contracts/
 - **USDC**: `0xf8EA5627691E041dae171350E8Df13c592084848`
 - **USDT**: `0x1e11d176117dbEDbd234b1c6a10C6eb8dceD275e`
 
+### Governance Contracts (Ready to Deploy)
+- **FushumaGovernor**: Main governance contract with veNFT-based voting
+- **GovernanceCouncil**: Council with veto and speedup powers
+- **VotingEscrow**: Vote-escrowed NFT for governance participation
+- **VotingEscrowV2**: Enhanced version with additional features
+- **EpochManager**: Manages governance epochs
+- **GaugeController**: Controls gauge weights for incentives
+- **Gauge**: Standard gauge implementation
+- **GrantGauge**: Specialized gauge for development grants
+
 ### DeFi Contracts (To Be Deployed)
-- **WFUMA**: TBD
+- **WFUMA**: TBD (or provide address if already deployed)
 - **Vault**: TBD
 - **CLPoolManager**: TBD
 - **InfinityRouter**: TBD
@@ -96,68 +106,98 @@ cp .env.example .env
 # Edit .env with your private key
 ```
 
-### 4. Deploy WFUMA (First Priority)
+### 4. Build Contracts
 
+```bash
+forge build
+```
+
+### 5. Run Tests
+
+```bash
+forge test
+```
+
+## Deployment Guides
+
+### Governance Contracts
+
+See [docs/GOVERNANCE_DEPLOYMENT.md](docs/GOVERNANCE_DEPLOYMENT.md) for detailed deployment instructions.
+
+**Quick Deploy**:
+```bash
+export PRIVATE_KEY=0x...
+forge script scripts/DeployGovernance.s.sol:DeployGovernance \
+  --rpc-url https://rpc.fushuma.com \
+  --private-key $PRIVATE_KEY \
+  --broadcast
+```
+
+### WFUMA Token
+
+See [scripts/deploy-wfuma.sh](scripts/deploy-wfuma.sh) for WFUMA deployment.
+
+**Quick Deploy**:
 ```bash
 export PRIVATE_KEY=0x...
 ./scripts/deploy-wfuma.sh
 ```
 
-## Deployment Sequence
+### DeFi Contracts
 
-Contracts must be deployed in the following order due to dependencies:
+See [docs/DEPLOYMENT_GUIDE.md](docs/DEPLOYMENT_GUIDE.md) for full DeFi deployment instructions.
 
-### Phase 1: Foundation (Critical)
-1. ✅ **WFUMA** - Wrapped FUMA token
-2. ⚠️ **Permit2** - Check if exists at canonical address, deploy if needed
+## Contract Categories
 
-### Phase 2: Core DeFi (Critical)
-3. **Vault** - Core liquidity vault
-4. **CLPoolManager** - Concentrated liquidity pool manager
-5. **BinPoolManager** - Bin-based pool manager (optional)
+### Governance Contracts ✅ Ready
 
-### Phase 3: Periphery (High Priority)
-6. **CLPositionManager** - LP position management
-7. **InfinityRouter** - Universal router for swaps
-8. **CLQuoter** - Price quoter for CL pools
-9. **MixedQuoter** - Multi-pool quoter
+The governance system implements a sophisticated voting mechanism with the following features:
 
-### Phase 4: Governance (Medium Priority)
-10. **CLProtocolFeeController** - Fee management
-11. **CLPoolManagerOwner** - Admin controls
+- **veNFT-based voting**: Lock FUMA tokens to receive voting power
+- **Council oversight**: Emergency veto and speedup capabilities
+- **Timelock execution**: Safety delays for proposal execution
+- **Epoch management**: Organized governance periods
+- **Gauge system**: Incentive distribution control
+- **Grant gauges**: Development grant allocation
 
-### Phase 5: Custom Features (Medium Priority)
-12. **FumaDiscountHook** - Fee discounts for FUMA holders
-13. **LaunchpadHook** - Launchpad integration
+**Key Contracts**:
+- `FushumaGovernor.sol` - Main governance contract
+- `GovernanceCouncil.sol` - Council with oversight powers
+- `VotingEscrow.sol` / `VotingEscrowV2.sol` - Vote-escrowed NFTs
+- `EpochManager.sol` - Epoch management
+- `GaugeController.sol` - Gauge weight controller
+- `Gauge.sol` / `GrantGauge.sol` - Gauge implementations
 
-## Contract Status
+**Documentation**:
+- [Architecture](docs/GOVERNANCE_ARCHITECTURE.md)
+- [Deployment Guide](docs/GOVERNANCE_DEPLOYMENT.md)
+- [Integration Guide](docs/GOVERNANCE_INTEGRATION.md)
 
-| Category | Contracts | Status | Priority |
-|----------|-----------|--------|----------|
-| **Tokens** | WFUMA | Ready to deploy | 🔴 Critical |
-| **Core DeFi** | Vault, Managers | Needs implementation | 🔴 Critical |
-| **Periphery** | Routers, Quoters | Needs implementation | 🟠 High |
-| **Governance** | Fee Controller, Owner | Needs implementation | 🟡 Medium |
-| **Hooks** | Discount, Launchpad | Needs implementation | 🟡 Medium |
-| **Launchpad** | Proxy, Vesting | ✅ Deployed | ✅ Complete |
-| **Bridge** | Bridge Contract | ✅ Deployed | ✅ Complete |
+### Token Contracts
 
-## Security
+**WFUMA (Wrapped FUMA)**
+- Standard WETH9 implementation adapted for FUMA
+- Enables native FUMA to be used in DeFi protocols
+- Status: Ready to deploy (or provide address if deployed)
 
-### Audit Status
-- **Launchpad**: Production (deployed)
-- **Bridge**: Production (deployed)
-- **DeFi Contracts**: Awaiting audit before production deployment
+### DeFi Contracts (Pending Implementation)
 
-### Best Practices
-- All contracts use Solidity 0.8.20+ with built-in overflow protection
-- Reentrancy guards on all state-changing functions
-- Access control via OpenZeppelin's Ownable/AccessControl
-- Comprehensive test coverage required before deployment
-- Multi-signature wallet for contract ownership
+These contracts require the FumaSwap V4 implementation:
 
-### Reporting Security Issues
-If you discover a security vulnerability, please email: security@fushuma.com
+**Core Contracts**:
+- Vault - Core liquidity vault
+- CLPoolManager - Concentrated liquidity pools
+- BinPoolManager - Bin-based pools (optional)
+
+**Periphery Contracts**:
+- CLPositionManager - Position management
+- InfinityRouter - Universal router
+- CLQuoter - Price quotes
+- MixedQuoter - Cross-pool quotes
+
+**Custom Hooks** (require development):
+- FumaDiscountHook - Fee discounts for FUMA holders
+- LaunchpadHook - Launchpad integration
 
 ## Testing
 
@@ -165,70 +205,58 @@ If you discover a security vulnerability, please email: security@fushuma.com
 # Run all tests
 forge test
 
+# Run with verbosity
+forge test -vvv
+
 # Run specific test file
-forge test --match-path test/WFUMA.t.sol
+forge test --match-path test/FushumaGovernor.t.sol
 
 # Run with gas reporting
 forge test --gas-report
 
-# Run with coverage
+# Generate coverage report
 forge coverage
 ```
 
-## Deployment Scripts
+## Security
 
-All deployment scripts are located in the `scripts/` directory:
+### Audit Status
+- **Launchpad**: Production (deployed)
+- **Bridge**: Production (deployed)
+- **Governance Contracts**: ⚠️ NOT audited yet - use at your own risk
+- **DeFi Contracts**: Awaiting audit before production deployment
 
-- `deploy-wfuma.sh` - Deploy Wrapped FUMA token
-- `deploy-core.sh` - Deploy core DeFi contracts (coming soon)
-- `deploy-periphery.sh` - Deploy periphery contracts (coming soon)
-- `deploy-hooks.sh` - Deploy custom hooks (coming soon)
+### Security Features
+- Solidity 0.8.20+ with built-in overflow protection
+- Reentrancy guards on critical functions
+- Access control via OpenZeppelin's patterns
+- Pausable for emergency stops
+- Timelock delays for governance execution
+- Comprehensive test coverage
 
-## Configuration
+### Reporting Security Issues
+If you discover a security vulnerability, please email: security@fushuma.com
 
-After deployment, update the following files in the main repository:
+## Documentation
 
-1. **fushuma-gov-hub-v2/src/lib/fumaswap/contracts.ts**
-   - Update all contract addresses
-   - Update WFUMA address in COMMON_TOKENS
-
-2. **Environment Variables**
-   - Set `NEXT_PUBLIC_WFUMA_ADDRESS`
-   - Set `NEXT_PUBLIC_VAULT_ADDRESS`
-   - Set other contract addresses
+- [Deployment Guide](docs/DEPLOYMENT_GUIDE.md) - Full deployment instructions
+- [Contract Status](docs/CONTRACT_STATUS.md) - Current deployment status
+- [Security Guidelines](docs/SECURITY.md) - Security best practices
+- [Governance Architecture](docs/GOVERNANCE_ARCHITECTURE.md) - Governance system design
+- [Governance Deployment](docs/GOVERNANCE_DEPLOYMENT.md) - Deploy governance contracts
+- [Governance Integration](docs/GOVERNANCE_INTEGRATION.md) - Integrate with governance
 
 ## Gas Estimates
 
-| Contract | Estimated Gas | Estimated Cost (at 1 gwei) |
-|----------|---------------|----------------------------|
-| WFUMA | ~1,000,000 | ~0.001 FUMA |
-| Vault | ~3,000,000 | ~0.003 FUMA |
-| CLPoolManager | ~4,000,000 | ~0.004 FUMA |
-| InfinityRouter | ~3,000,000 | ~0.003 FUMA |
-| CLPositionManager | ~2,500,000 | ~0.0025 FUMA |
-| **Total** | ~25,000,000 | ~0.025 FUMA |
+| Contract Category | Estimated Gas | Notes |
+|-------------------|---------------|-------|
+| WFUMA | ~1,000,000 | Standard wrapped token |
+| Governance (full suite) | ~15,000,000 | All governance contracts |
+| Core DeFi | ~10,000,000 | Vault + Managers |
+| Periphery | ~8,000,000 | Routers + Quoters |
+| **Total** | ~35,000,000 | Full deployment |
 
 *Note: Actual costs depend on network gas prices at deployment time*
-
-## Development Roadmap
-
-### ✅ Phase 0: Infrastructure (Complete)
-- [x] Launchpad contracts deployed
-- [x] Bridge contracts deployed
-- [x] Payment tokens configured
-- [x] Frontend infrastructure ready
-
-### 🔄 Phase 1: Core DeFi (In Progress)
-- [x] WFUMA contract ready
-- [ ] Core contracts implementation
-- [ ] Periphery contracts implementation
-- [ ] Testing and audit
-
-### 📋 Phase 2: Advanced Features (Planned)
-- [ ] Custom hooks implementation
-- [ ] Governance contracts
-- [ ] Staking and farming
-- [ ] Subgraph deployment
 
 ## Contributing
 
@@ -267,6 +295,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**⚠️ Important**: These contracts are under active development. Do not use in production without proper auditing and testing.
+**⚠️ Important**: Governance contracts have NOT been audited. DeFi contracts are under development. Do not use in production without proper auditing and testing.
 
-**Last Updated**: November 2025
+**Last Updated**: November 11, 2025
