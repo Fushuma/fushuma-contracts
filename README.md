@@ -180,24 +180,35 @@ The governance system implements a sophisticated voting mechanism with the follo
 - Enables native FUMA to be used in DeFi protocols
 - Status: Ready to deploy (or provide address if deployed)
 
-### DeFi Contracts (Pending Implementation)
+### DeFi Contracts - FumaSwap V4 ✅ Ready
 
-These contracts require the FumaSwap V4 implementation:
+FumaSwap V4 is a decentralized exchange built on PancakeSwap V4 (Infinity) architecture.
 
 **Core Contracts**:
-- Vault - Core liquidity vault
-- CLPoolManager - Concentrated liquidity pools
-- BinPoolManager - Bin-based pools (optional)
+- `Vault.sol` - Central liquidity vault managing all pools
+- `CLPoolManager.sol` - Concentrated liquidity pool manager
+- `BinPoolManager.sol` - Bin-based pool manager (optional)
+- `ProtocolFees.sol` - Protocol fee collection
+- `ProtocolFeeController.sol` - Fee management
 
 **Periphery Contracts**:
-- CLPositionManager - Position management
-- InfinityRouter - Universal router
-- CLQuoter - Price quotes
-- MixedQuoter - Cross-pool quotes
+- `CLPositionManager.sol` - Concentrated liquidity position management
+- `InfinityRouter.sol` - Universal router for swaps and liquidity
+- `CLQuoter.sol` - Price quotes for CL pools
+- `MixedQuoter.sol` - Cross-pool quote aggregation
+- `BatchRouter.sol` - Batch operations
 
-**Custom Hooks** (require development):
-- FumaDiscountHook - Fee discounts for FUMA holders
-- LaunchpadHook - Launchpad integration
+**Custom Hooks**:
+- `FumaDiscountHook.sol` - Dynamic fee discounts for FUMA holders
+- `LaunchpadHook.sol` - Integration with Fushuma Launchpad
+
+**Status**: ⚠️ NOT audited - Ready for testnet deployment
+
+**Documentation**:
+- [FumaSwap Overview](src/fumaswap-v4/README.md)
+- [Deployment Guide](docs/FUMASWAP_DEPLOYMENT.md)
+- [Architecture](docs/FUMASWAP_ARCHITECTURE.md)
+- [Integration Guide](docs/FUMASWAP_INTEGRATION.md)
 
 ## Testing
 
