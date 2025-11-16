@@ -1,0 +1,13 @@
+{
+  "create3Factory": "0x0000000000000000000000000000000000000000",
+  "poolOwner": "0xf4C3914B127571fDfDdB3B5caCE6a9428DB0183b",
+  "permit2": "0x000000000022D473030F116dDEE9F6B43aC78BA3",
+  "weth": "0xBcA7B11c788dBb85bE92627ef1e60a2A9B7e2c6E",
+  "vault": "",
+  "clPoolManager": "",
+  "binPoolManager": "",
+  "clProtocolFeeController": "",
+  "binProtocolFeeController": "",
+  "clPoolManagerOwner": "",
+  "binPoolManagerOwner": ""
+}
