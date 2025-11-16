@@ -53,25 +53,39 @@ fushuma-contracts/
 - **GrantGauge**: `0x0D6833778cf1fa803D21075b800483F68f57A153`
 
 ### DeFi Core Contracts (Production ✅)
-**Deployed**: November 16, 2025
+**Deployed**: November 16, 2025 (Paris EVM Compatible)
 
-- **Vault**: `0xd1AF417B5C2a1DEd602dE9068bf90Af0A8b93E27`
-- **CLPoolManager**: `0x103C72dB83e413B787596b2524a07dd6856C6bBf`
-- **BinPoolManager**: `0xCd9BE698a24f70Cc9903E3C59fd48B56dd565425`
+- **Vault**: `0x4FB212Ed5038b0EcF2c8322B3c71FC64d66073A1`
+- **CLPoolManager**: `0x9123DeC6d2bE7091329088BA1F8Dc118eEc44f7a`
+- **BinPoolManager**: `0x3014809fBFF942C485A9F527242eC7C5A9ddC765`
 
-### DeFi Periphery Contracts (⏳ Pending Deployment)
-- **CLPositionManager**: TBD
-- **InfinityRouter**: TBD
-- **MixedQuoter**: TBD
+### DeFi Periphery Contracts (Production ✅)
+**Deployed**: November 16, 2025 (Paris EVM Compatible)
+
+**Concentrated Liquidity:**
+- **CLQuoter**: `0x9C82E4098805a00eAE3CE96D1eBFD117CeB1fAF8`
+- **CLPositionDescriptor**: `0x181267d849a0a89bC45F4e96F70914AcFb631515`
+- **CLPositionManager**: `0x411755EeC7BaA85F8d6819189FE15d966F41Ad85`
+
+**Bin Pools:**
+- **BinQuoter**: `0x24cc1bc41220e638204216FdB4252b1D3716561D`
+- **BinPositionManager**: `0x36eb7e5Ae00b2eEA50435084bb98Bb4Ebf5E2982`
+
+**Router:**
+- **InfinityRouter**: `0x9E98f794bd1c4161898013fa0DEE406B7b06aB6B`
+
+### Supporting Contracts (Production ✅)
+- **Permit2**: `0x1d5E963f9581F5416Eae6C9978246B7dDf559Ff0`
+
+### Protocol Governance (⏳ Optional - Pending)
 - **CLProtocolFeeController**: TBD
 - **CLPoolManagerOwner**: TBD
 
-### Custom Hooks (⏳ Pending Development)
+### Custom Hooks (⏳ Optional - Pending Development)
 - **FumaDiscountHook**: TBD
 - **LaunchpadHook**: TBD
 
-### Supporting Contracts (⏳ To Deploy)
-- **Permit2**: `0x000000000022D473030F116dDEE9F6B43aC78BA3` (Canonical address, needs deployment)
+**Note**: MixedQuoter was skipped due to transient storage incompatibility with zkEVM+. All deployed contracts use Paris EVM compatible versions.
 
 ## Network Information
 
@@ -144,10 +158,11 @@ forge test
 | **Token Infrastructure** | 1 | 1 | 0 | 100% ✅ |
 | **Governance** | 6 | 6 | 0 | 100% ✅ |
 | **Core DeFi** | 3 | 3 | 0 | 100% ✅ |
-| **Periphery DeFi** | 5 | 0 | 5 | 0% ⏳ |
-| **Hooks** | 2 | 0 | 2 | 0% ⏳ |
-| **Supporting** | 1 | 0 | 1 | 0% ⏳ |
-| **TOTAL** | 23 | 15 | 8 | 65% |
+| **Periphery DeFi** | 6 | 6 | 0 | 100% ✅ |
+| **Supporting** | 1 | 1 | 0 | 100% ✅ |
+| **Protocol Governance** | 2 | 0 | 2 | 0% ⏳ |
+| **Custom Hooks** | 2 | 0 | 2 | 0% ⏳ |
+| **TOTAL** | 26 | 22 | 4 | 85% |
 
 ## Deployment Guides
 
@@ -280,18 +295,24 @@ If you discover a security vulnerability, please email: security@fushuma.com
 
 ## Next Steps
 
-### Immediate Priorities
+### Optional Enhancements
 
-1. **Deploy Permit2** - Required for periphery contracts
-2. **Deploy Periphery Contracts** - Enable full DEX functionality
-3. **Create Initial Pools** - WFUMA/USDC, WFUMA/USDT
-4. **Security Audit** - Professional audit before handling significant value
+1. **Protocol Governance Contracts** (Optional)
+   - CLProtocolFeeController - for dynamic fee management
+   - CLPoolManagerOwner - for decentralized pool governance
 
-### Future Enhancements
+2. **Custom Hooks Development** (Optional)
+   - FumaDiscountHook - fee discounts for FUMA holders
+   - LaunchpadHook - launchpad integration features
 
-1. **Custom Hooks Development** - FumaDiscountHook, LaunchpadHook
-2. **Protocol Governance** - Fee controllers, pool manager ownership
-3. **Monitoring & Alerts** - Production monitoring infrastructure
+3. **Security Audit** (Recommended)
+   - Professional audit before handling significant value
+   - Comprehensive security review of all deployed contracts
+
+4. **Monitoring & Alerts**
+   - Production monitoring infrastructure
+   - Real-time alerts for unusual activity
+   - Performance metrics and analytics
 
 ## Contributing
 
