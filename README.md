@@ -1,16 +1,16 @@
 # Fushuma Network Smart Contracts
 
-Production-ready smart contracts for the Fushuma Network ecosystem, including DeFi, Launchpad, Bridge, and Governance infrastructure.
+Production-ready smart contracts for the Fushuma Network ecosystem, including DeFi, Governance, Launchpad, and Bridge infrastructure.
 
 ## Overview
 
 This repository contains all smart contracts that power the Fushuma Network platform:
 
-- **DeFi (FumaSwap V4)**: Core DEX contracts for trading and liquidity provision
-- **Governance**: On-chain governance with vote-escrowed NFTs and council oversight
-- **Launchpad**: Token launch and vesting contracts (already deployed)
-- **Bridge**: Cross-chain bridge contracts (already deployed)
-- **Tokens**: Wrapped tokens and standard implementations
+- **DeFi (FumaSwap V4)**: Core DEX contracts for trading and liquidity provision (✅ Core deployed)
+- **Governance**: On-chain governance with vote-escrowed NFTs and council oversight (✅ Deployed)
+- **Launchpad**: Token launch and vesting contracts (✅ Deployed)
+- **Bridge**: Cross-chain bridge contracts (✅ Deployed)
+- **Tokens**: Wrapped tokens and standard implementations (✅ WFUMA deployed)
 
 ## Repository Structure
 
@@ -22,7 +22,7 @@ fushuma-contracts/
 │   ├── governance/     # Governance contracts (Governor, Council, VotingEscrow)
 │   ├── hooks/          # Custom hook implementations
 │   └── tokens/         # Token contracts (WFUMA, etc.)
-├── scripts/            # Deployment and management scripts
+├── script/             # Deployment and management scripts
 ├── test/               # Contract tests
 ├── docs/               # Documentation
 └── README.md
@@ -41,30 +41,44 @@ fushuma-contracts/
 - **USDC**: `0xf8EA5627691E041dae171350E8Df13c592084848`
 - **USDT**: `0x1e11d176117dbEDbd234b1c6a10C6eb8dceD275e`
 
-### Governance Contracts (Ready to Deploy)
-- **FushumaGovernor**: Main governance contract with veNFT-based voting
-- **GovernanceCouncil**: Council with veto and speedup powers
-- **VotingEscrow**: Vote-escrowed NFT for governance participation
-- **VotingEscrowV2**: Enhanced version with additional features
-- **EpochManager**: Manages governance epochs
-- **GaugeController**: Controls gauge weights for incentives
-- **Gauge**: Standard gauge implementation
-- **GrantGauge**: Specialized gauge for development grants
+### Token Infrastructure (Production ✅)
+- **WFUMA**: `0xBcA7B11c788dBb85bE92627ef1e60a2A9B7e2c6E`
 
-### DeFi Contracts (To Be Deployed)
-- **WFUMA**: TBD (or provide address if already deployed)
-- **Vault**: TBD
-- **CLPoolManager**: TBD
-- **InfinityRouter**: TBD
+### Governance Contracts (Production ✅)
+- **VotingEscrow**: `0x80Ebf301efc7b0FF1825dC3B4e8d69e414eaa26f`
+- **EpochManager**: `0x36C3b4EA7dC2622b8C63a200B60daC0ab2d8f453`
+- **GovernanceCouncil**: `0x92bCcdcae7B73A5332429e517D26515D447e9997`
+- **FushumaGovernor**: `0xF36107b3AA203C331284E5A467C1c58bDD5b591D`
+- **GaugeController**: `0x41E7ba36C43CCd4b83a326bB8AEf929e109C9466`
+- **GrantGauge**: `0x0D6833778cf1fa803D21075b800483F68f57A153`
+
+### DeFi Core Contracts (Production ✅)
+**Deployed**: November 16, 2025
+
+- **Vault**: `0xd1AF417B5C2a1DEd602dE9068bf90Af0A8b93E27`
+- **CLPoolManager**: `0x103C72dB83e413B787596b2524a07dd6856C6bBf`
+- **BinPoolManager**: `0xCd9BE698a24f70Cc9903E3C59fd48B56dd565425`
+
+### DeFi Periphery Contracts (⏳ Pending Deployment)
 - **CLPositionManager**: TBD
+- **InfinityRouter**: TBD
 - **MixedQuoter**: TBD
+- **CLProtocolFeeController**: TBD
+- **CLPoolManagerOwner**: TBD
+
+### Custom Hooks (⏳ Pending Development)
+- **FumaDiscountHook**: TBD
+- **LaunchpadHook**: TBD
+
+### Supporting Contracts (⏳ To Deploy)
+- **Permit2**: `0x000000000022D473030F116dDEE9F6B43aC78BA3` (Canonical address, needs deployment)
 
 ## Network Information
 
-- **Network**: Fushuma Network
+- **Network**: Fushuma zkEVM+ Mainnet
 - **Chain ID**: 121224
 - **RPC URL**: https://rpc.fushuma.com
-- **Explorer**: https://explorer.fushuma.com
+- **Explorer**: https://fumascan.com
 - **Native Token**: FUMA
 
 ## Prerequisites
@@ -118,42 +132,50 @@ forge build
 forge test
 ```
 
+## Deployment Status
+
+### Overall Progress
+
+| Category | Total | Deployed | Pending | Progress |
+|----------|-------|----------|---------|----------|
+| **Launchpad** | 2 | 2 | 0 | 100% ✅ |
+| **Bridge** | 1 | 1 | 0 | 100% ✅ |
+| **Payment Tokens** | 2 | 2 | 0 | 100% ✅ |
+| **Token Infrastructure** | 1 | 1 | 0 | 100% ✅ |
+| **Governance** | 6 | 6 | 0 | 100% ✅ |
+| **Core DeFi** | 3 | 3 | 0 | 100% ✅ |
+| **Periphery DeFi** | 5 | 0 | 5 | 0% ⏳ |
+| **Hooks** | 2 | 0 | 2 | 0% ⏳ |
+| **Supporting** | 1 | 0 | 1 | 0% ⏳ |
+| **TOTAL** | 23 | 15 | 8 | 65% |
+
 ## Deployment Guides
 
 ### Governance Contracts
 
-See [docs/GOVERNANCE_DEPLOYMENT.md](docs/GOVERNANCE_DEPLOYMENT.md) for detailed deployment instructions.
+See [DEPLOYMENT_README.md](DEPLOYMENT_README.md) for detailed governance deployment information.
 
-**Quick Deploy**:
-```bash
-export PRIVATE_KEY=0x...
-forge script scripts/DeployGovernance.s.sol:DeployGovernance \
-  --rpc-url https://rpc.fushuma.com \
-  --private-key $PRIVATE_KEY \
-  --broadcast
-```
+**Status**: ✅ All governance contracts deployed and operational
 
-### WFUMA Token
+### DeFi Core Contracts
 
-See [scripts/deploy-wfuma.sh](scripts/deploy-wfuma.sh) for WFUMA deployment.
+See [DEFI_DEPLOYMENT.md](DEFI_DEPLOYMENT.md) for detailed DeFi deployment information.
 
-**Quick Deploy**:
-```bash
-export PRIVATE_KEY=0x...
-./scripts/deploy-wfuma.sh
-```
+**Status**: ✅ Core contracts (Vault, CLPoolManager, BinPoolManager) deployed
 
-### DeFi Contracts
+### Periphery Contracts
 
-See [docs/DEPLOYMENT_GUIDE.md](docs/DEPLOYMENT_GUIDE.md) for full DeFi deployment instructions.
+**Status**: ⏳ Pending deployment - requires infinity-periphery integration
+
+The periphery contracts (routers, quoters, position managers) are next in the deployment pipeline and require integration with the PancakeSwap V4 infinity-periphery repository.
 
 ## Contract Categories
 
-### Governance Contracts ✅ Ready
+### Governance Contracts ✅ Deployed
 
 The governance system implements a sophisticated voting mechanism with the following features:
 
-- **veNFT-based voting**: Lock FUMA tokens to receive voting power
+- **veNFT-based voting**: Lock WFUMA tokens to receive voting power
 - **Council oversight**: Emergency veto and speedup capabilities
 - **Timelock execution**: Safety delays for proposal execution
 - **Epoch management**: Organized governance periods
@@ -163,52 +185,50 @@ The governance system implements a sophisticated voting mechanism with the follo
 **Key Contracts**:
 - `FushumaGovernor.sol` - Main governance contract
 - `GovernanceCouncil.sol` - Council with oversight powers
-- `VotingEscrow.sol` / `VotingEscrowV2.sol` - Vote-escrowed NFTs
+- `VotingEscrow.sol` - Vote-escrowed NFTs
 - `EpochManager.sol` - Epoch management
 - `GaugeController.sol` - Gauge weight controller
-- `Gauge.sol` / `GrantGauge.sol` - Gauge implementations
+- `GrantGauge.sol` - Grant gauge implementation
 
 **Documentation**:
+- [Deployment Info](DEPLOYMENT_README.md)
 - [Architecture](docs/GOVERNANCE_ARCHITECTURE.md)
 - [Deployment Guide](docs/GOVERNANCE_DEPLOYMENT.md)
 - [Integration Guide](docs/GOVERNANCE_INTEGRATION.md)
 
-### Token Contracts
+### Token Contracts ✅ Deployed
 
 **WFUMA (Wrapped FUMA)**
+- **Address**: `0xBcA7B11c788dBb85bE92627ef1e60a2A9B7e2c6E`
 - Standard WETH9 implementation adapted for FUMA
 - Enables native FUMA to be used in DeFi protocols
-- Status: Ready to deploy (or provide address if deployed)
 
-### DeFi Contracts - FumaSwap V4 ✅ Ready
+### DeFi Contracts - FumaSwap V4 ✅ Core Deployed
 
 FumaSwap V4 is a decentralized exchange built on PancakeSwap V4 (Infinity) architecture.
 
-**Core Contracts**:
+**Core Contracts** (✅ Deployed):
 - `Vault.sol` - Central liquidity vault managing all pools
 - `CLPoolManager.sol` - Concentrated liquidity pool manager
-- `BinPoolManager.sol` - Bin-based pool manager (optional)
-- `ProtocolFees.sol` - Protocol fee collection
-- `ProtocolFeeController.sol` - Fee management
+- `BinPoolManager.sol` - Bin-based pool manager
 
-**Periphery Contracts**:
+**Periphery Contracts** (⏳ Pending):
 - `CLPositionManager.sol` - Concentrated liquidity position management
 - `InfinityRouter.sol` - Universal router for swaps and liquidity
 - `CLQuoter.sol` - Price quotes for CL pools
 - `MixedQuoter.sol` - Cross-pool quote aggregation
 - `BatchRouter.sol` - Batch operations
 
-**Custom Hooks**:
+**Custom Hooks** (⏳ Pending):
 - `FumaDiscountHook.sol` - Dynamic fee discounts for FUMA holders
 - `LaunchpadHook.sol` - Integration with Fushuma Launchpad
 
-**Status**: ⚠️ NOT audited - Ready for testnet deployment
+**Status**: ⚠️ Core deployed, periphery pending - NOT audited yet
 
 **Documentation**:
-- [FumaSwap Overview](src/fumaswap-v4/README.md)
-- [Deployment Guide](docs/FUMASWAP_DEPLOYMENT.md)
-- [Architecture](docs/FUMASWAP_ARCHITECTURE.md)
-- [Integration Guide](docs/FUMASWAP_INTEGRATION.md)
+- [DeFi Deployment](DEFI_DEPLOYMENT.md)
+- [Production Readiness](DEFI_PRODUCTION_READINESS.md)
+- [Deployment Checklist](DEPLOYMENT_CHECKLIST.md)
 
 ## Testing
 
@@ -235,7 +255,7 @@ forge coverage
 - **Launchpad**: Production (deployed)
 - **Bridge**: Production (deployed)
 - **Governance Contracts**: ⚠️ NOT audited yet - use at your own risk
-- **DeFi Contracts**: Awaiting audit before production deployment
+- **DeFi Contracts**: ⚠️ NOT audited yet - use at your own risk
 
 ### Security Features
 - Solidity 0.8.20+ with built-in overflow protection
@@ -250,24 +270,28 @@ If you discover a security vulnerability, please email: security@fushuma.com
 
 ## Documentation
 
-- [Deployment Guide](docs/DEPLOYMENT_GUIDE.md) - Full deployment instructions
+- [Deployment Summary](DEPLOYMENT_SUMMARY.md) - Overall deployment status and plan
+- [DeFi Deployment](DEFI_DEPLOYMENT.md) - DeFi contracts deployment info
+- [Governance Deployment](DEPLOYMENT_README.md) - Governance contracts deployment info
 - [Contract Status](docs/CONTRACT_STATUS.md) - Current deployment status
 - [Security Guidelines](docs/SECURITY.md) - Security best practices
 - [Governance Architecture](docs/GOVERNANCE_ARCHITECTURE.md) - Governance system design
-- [Governance Deployment](docs/GOVERNANCE_DEPLOYMENT.md) - Deploy governance contracts
 - [Governance Integration](docs/GOVERNANCE_INTEGRATION.md) - Integrate with governance
 
-## Gas Estimates
+## Next Steps
 
-| Contract Category | Estimated Gas | Notes |
-|-------------------|---------------|-------|
-| WFUMA | ~1,000,000 | Standard wrapped token |
-| Governance (full suite) | ~15,000,000 | All governance contracts |
-| Core DeFi | ~10,000,000 | Vault + Managers |
-| Periphery | ~8,000,000 | Routers + Quoters |
-| **Total** | ~35,000,000 | Full deployment |
+### Immediate Priorities
 
-*Note: Actual costs depend on network gas prices at deployment time*
+1. **Deploy Permit2** - Required for periphery contracts
+2. **Deploy Periphery Contracts** - Enable full DEX functionality
+3. **Create Initial Pools** - WFUMA/USDC, WFUMA/USDT
+4. **Security Audit** - Professional audit before handling significant value
+
+### Future Enhancements
+
+1. **Custom Hooks Development** - FumaDiscountHook, LaunchpadHook
+2. **Protocol Governance** - Fee controllers, pool manager ownership
+3. **Monitoring & Alerts** - Production monitoring infrastructure
 
 ## Contributing
 
@@ -291,7 +315,7 @@ We welcome contributions! Please follow these guidelines:
 - **Documentation**: [docs.fushuma.com](https://docs.fushuma.com)
 - **Website**: [fushuma.com](https://fushuma.com)
 - **Governance Hub**: [governance2.fushuma.com](https://governance2.fushuma.com)
-- **Explorer**: [explorer.fushuma.com](https://explorer.fushuma.com)
+- **Explorer**: [fumascan.com](https://fumascan.com)
 - **GitHub**: [github.com/Fushuma](https://github.com/Fushuma)
 
 ## License
@@ -306,6 +330,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**⚠️ Important**: Governance contracts have NOT been audited. DeFi contracts are under development. Do not use in production without proper auditing and testing.
+**⚠️ Important**: Governance and DeFi contracts have NOT been audited. Do not use in production with significant value without proper auditing and testing.
 
-**Last Updated**: November 11, 2025
+**Last Updated**: November 16, 2025
