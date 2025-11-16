@@ -17,7 +17,8 @@ contract CLPositionDescriptorOffChain is ICLPositionDescriptor, Ownable {
     /// This defaults to address(0) but will be used if set
     ICLPositionDescriptor public tokenURIContract;
 
-    constructor(string memory baseTokenURI) Ownable(msg.sender) {
+    constructor(string memory baseTokenURI) {
+        _transferOwnership(msg.sender);
         _baseTokenURI = baseTokenURI;
     }
 
