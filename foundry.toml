@@ -1,5 +1,5 @@
 [profile.default]
-src = "src/infinity-core"
+src = "src"
 out = "out"
 libs = ["lib"]
 solc_version = "0.8.26"
@@ -16,6 +16,7 @@ remappings = [
     "forge-std/=lib/forge-std/src/",
     "solmate/=lib/solmate/src/",
     "infinity-core/=src/infinity-core/",
+    "infinity-periphery/=src/infinity-periphery/",
     "permit2/=lib/permit2/",
     "pancake-create3-factory/=lib/pancake-create3-factory/"
 ]
