@@ -123,5 +123,5 @@ interface IMixedQuoter {
 
     /// @dev ExactOutput swaps are not supported by this new Quoter which is specialized for supporting routes
     ///      crossing Stable, V2 liquidity pairs and V3 pools.
-    /// @deprecated quoteExactOutputSingle and exactOutput. Use QuoterV2 instead.
+    /// @custom:deprecated quoteExactOutputSingle and exactOutput. Use QuoterV2 instead.
 }
