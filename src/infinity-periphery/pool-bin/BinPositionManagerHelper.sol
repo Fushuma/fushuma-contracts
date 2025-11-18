@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2024 PancakeSwap
-pragma solidity 0.8.26;
+pragma solidity 0.8.20;
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IAllowanceTransfer} from "permit2/src/interfaces/IAllowanceTransfer.sol";
@@ -61,7 +61,6 @@ contract BinPositionManagerHelper is Multicall, Permit2Forwarder, ReentrancyLock
     ) Permit2Forwarder(_permit2) {
         binPoolManager = _binPoolManager;
         binPositionManager = _binPositionManager;
-        permit2 = _permit2;
         WETH9 = _weth9;
     }
 

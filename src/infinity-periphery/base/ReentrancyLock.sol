@@ -1,11 +1,13 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2024 PancakeSwap
-pragma solidity ^0.8.24;
+// Modified for Shanghai EVM compatibility - replaced transient storage with regular storage
+pragma solidity ^0.8.20;
 
-/// @notice A transient reentrancy lock, that stores the caller's address as the lock
+/// @notice A reentrancy lock using regular storage for Shanghai EVM compatibility
+/// @dev Stores the caller's address as the lock
 contract ReentrancyLock {
-    // The slot holding the locker state, transiently. bytes32(uint256(keccak256("LockedBy")) - 1)
-    bytes32 constant LOCKED_BY_SLOT = 0x0aedd6bde10e3aa2adec092b02a3e3e805795516cda41f27aa145b8f300af87a;
+    /// @dev Storage slot for the locker state - computed from keccak256
+    uint256 private constant LOCKED_BY_SLOT = 0xae6c4170a39a4e4c8c7ddf414bd8c6056a32cc8228e8b6e142a7e2952556988e;
 
     error ContractLocked();
 
@@ -18,13 +20,13 @@ contract ReentrancyLock {
 
     function _setLocker(address locker) internal {
         assembly ("memory-safe") {
-            tstore(LOCKED_BY_SLOT, locker)
+            sstore(LOCKED_BY_SLOT, locker)
         }
     }
 
     function _getLocker() internal view returns (address locker) {
         assembly ("memory-safe") {
-            locker := tload(LOCKED_BY_SLOT)
+            locker := sload(LOCKED_BY_SLOT)
         }
     }
 }

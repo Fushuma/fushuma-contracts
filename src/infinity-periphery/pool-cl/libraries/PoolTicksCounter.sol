@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2024 PancakeSwap
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.20;
 
 import {CLPoolParametersHelper} from "infinity-core/pool-cl/libraries/CLPoolParametersHelper.sol";
 import {ICLPoolManager} from "infinity-core/pool-cl/interfaces/ICLPoolManager.sol";

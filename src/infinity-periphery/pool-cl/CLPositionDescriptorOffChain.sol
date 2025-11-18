@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2024 PancakeSwap
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.20;
 
 import {ICLPositionDescriptor} from "./interfaces/ICLPositionDescriptor.sol";
 import {ICLPositionManager} from "./interfaces/ICLPositionManager.sol";

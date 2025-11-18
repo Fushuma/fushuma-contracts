@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.20;
 
 import {PoolId} from "infinity-core/types/PoolId.sol";
 import {PoolKey} from "infinity-core/types/PoolKey.sol";
