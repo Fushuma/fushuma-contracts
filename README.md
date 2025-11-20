@@ -61,27 +61,29 @@ fushuma-contracts/
 - **CLPoolManager**: `0x2D691Ff314F7BB2Ce9Aeb94d556440Bb0DdbFe1e`
 - **BinPoolManager**: `0xD5F370971602DB2D449a6518f55fCaFBd1a51143`
 
-**⚠️ Important**: These contracts have been redeployed with Shanghai EVM adaptations using the Storage-as-Transient pattern. All periphery contracts need to be redeployed to work with the new core contracts.
+**✅ Complete Deployment**: All core and periphery contracts have been deployed with Shanghai EVM adaptations using the Storage-as-Transient pattern. The entire DeFi suite is operational.
 
 ### DeFi Periphery Contracts (Production ✅)
-**Deployed**: November 16, 2025 (Paris EVM Compatible)
+**Deployed**: November 20, 2025 (Shanghai EVM Compatible - Storage-as-Transient Pattern)
 
 **Concentrated Liquidity:**
-- **CLQuoter**: `0x9C82E4098805a00eAE3CE96D1eBFD117CeB1fAF8`
-- **CLPositionDescriptor**: `0x181267d849a0a89bC45F4e96F70914AcFb631515`
-- **CLPositionManager**: `0x411755EeC7BaA85F8d6819189FE15d966F41Ad85`
+- **CLQuoter**: `0x011E0e62711fd38e0AF68A7E9f7c37bb32b49660`
+- **CLPositionDescriptor**: `0x8744C9Ec3f61c72Acb41801B7Db95fC507d20cd5`
+- **CLPositionManager**: `0x750525284ec59F21CF1c03C62A062f6B6473B7b1`
 
 **Bin Pools:**
-- **BinQuoter**: `0x24cc1bc41220e638204216FdB4252b1D3716561D`
-- **BinPositionManager**: `0x36eb7e5Ae00b2eEA50435084bb98Bb4Ebf5E2982`
+- **BinQuoter**: `0x33ae227f70bcdce9cafbc05d37f93f187aa4f913`
+- **BinPositionManager**: `0x1842651310c3BD344E58CDb84c1B96a386998e04`
 
 **Router:**
-- **InfinityRouter**: `0x9E98f794bd1c4161898013fa0DEE406B7b06aB6B`
+- **FumaInfinityRouter**: `0x662F4e8CdB064B58FE686AFCd2ceDbB921a0f11f`
 
 ### Supporting Contracts (Production ✅)
 - **Permit2**: `0x1d5E963f9581F5416Eae6C9978246B7dDf559Ff0`
 
-**Note**: Core contracts have been redeployed with Shanghai EVM adaptations (November 20, 2025). Periphery contracts need to be redeployed to work with the new core contracts. The new implementation uses a Storage-as-Transient pattern for compatibility with Shanghai EVM specification.
+**Note**: All core and periphery contracts have been deployed with Shanghai EVM adaptations (November 20, 2025). The implementation uses a Storage-as-Transient pattern for compatibility with Shanghai EVM specification. All contracts are fully operational and work together as a complete DeFi suite.
+
+**⚠️ IMPORTANT**: These are the ONLY valid contract addresses. Old addresses from previous deployments are deprecated and should NOT be used.
 
 ### Future Enhancements (Optional)
 The following contracts are optional enhancements that may be added in the future:
