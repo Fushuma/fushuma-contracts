@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright (C) 2024 PancakeSwap
+// Modified for Shanghai EVM compatibility - added exttload proxy
 pragma solidity ^0.8.0;
 
 /// @notice This code is adapted from
@@ -40,5 +41,25 @@ abstract contract Extsload is IExtsload {
             }
             return(start, sub(end, start))
         }
+    }
+
+    /// @notice Proxy function to read from Vault's transient storage mock
+    /// @dev This is essential for Quoter and SDK to work on Shanghai EVM
+    /// @param slot The storage slot to read from
+    /// @return value The value stored at the slot
+    function exttload(bytes32 slot) external view virtual returns (bytes32 value) {
+        // This will be overridden in PoolManager to proxy to Vault
+        // Default implementation returns 0
+        return bytes32(0);
+    }
+
+    /// @notice Proxy function to read multiple slots from Vault's transient storage mock
+    /// @param slots Array of storage slots to read
+    /// @return values Array of values stored at the slots
+    function exttload(bytes32[] calldata slots) external view virtual returns (bytes32[] memory values) {
+        // This will be overridden in PoolManager to proxy to Vault
+        // Default implementation returns array of zeros
+        values = new bytes32[](slots.length);
+        return values;
     }
 }

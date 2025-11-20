@@ -264,6 +264,25 @@ contract CLPoolManager is ICLPoolManager, ProtocolFees, Extsload {
         pools[id].setProtocolFee(newProtocolFee);
     }
 
+    /// @notice Proxy exttload calls to the Vault's transient storage mock
+    /// @dev This is essential for the Quoter and SDK to simulate swaps correctly on Shanghai EVM
+    /// @param slot The storage slot to read from
+    /// @return value The value from Vault's transient storage mock
+    function exttload(bytes32 slot) external view override returns (bytes32) {
+        return vault.transientStorageMock(slot);
+    }
+
+    /// @notice Proxy exttload calls for multiple slots to the Vault's transient storage mock
+    /// @param slots Array of storage slots to read
+    /// @return values Array of values from Vault's transient storage mock
+    function exttload(bytes32[] calldata slots) external view override returns (bytes32[] memory values) {
+        values = new bytes32[](slots.length);
+        for (uint256 i = 0; i < slots.length; i++) {
+            values[i] = vault.transientStorageMock(slots[i]);
+        }
+        return values;
+    }
+
     /// @notice not accept ether
     // receive() external payable {}
     // fallback() external payable {}
