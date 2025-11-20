@@ -1,0 +1,33 @@
+# Fushuma DeFi - Deployed Contract Addresses
+# Deployment Date: November 20, 2025
+# Network: Fushuma zkEVM+ Mainnet (Chain ID: 121224)
+
+## Core Contracts (Shanghai EVM Adapted)
+VAULT_ADDRESS=0x9c6bAfE545fF2d31B0abef12F4724DCBfB08c839
+CL_POOL_MANAGER_ADDRESS=0x2D691Ff314F7BB2Ce9Aeb94d556440Bb0DdbFe1e
+BIN_POOL_MANAGER_ADDRESS=0xD5F370971602DB2D449a6518f55fCaFBd1a51143
+
+## Existing Token Addresses
+WFUMA_ADDRESS=0xBcA7B11c788dBb85bE92627ef1e60a2A9B7e2c6E
+USDC_ADDRESS=0xf8EA5627691E041dae171350E8Df13c592084848
+USDT_ADDRESS=0x1e11d176117dbEDbd234b1c6a10C6eb8dceD275e
+
+## Utilities
+PERMIT2_ADDRESS=0x1d5E963f9581F5416Eae6C9978246B7dDf559Ff0
+
+## Explorer Links
+Vault: https://fumascan.com/address/0x9c6bAfE545fF2d31B0abef12F4724DCBfB08c839
+CLPoolManager: https://fumascan.com/address/0x2D691Ff314F7BB2Ce9Aeb94d556440Bb0DdbFe1e
+BinPoolManager: https://fumascan.com/address/0xD5F370971602DB2D449a6518f55fCaFBd1a51143
+
+## Transaction Hashes
+Vault Deployment: 0xac2d130d9e33c3be7aaf3159edc4387d6d995513b5a41d40d95b6a05532990a6
+CLPoolManager Deployment: 0x70108a2726fd46954718c63641c4d7823e79e046c2170de0eae6c85ffc367d59
+BinPoolManager Deployment: 0x1a0e25be5b89026319aa97b613e54d9d449fc53821a026c1418872053bfa7ac3
+
+## Deployer
+Address: 0xf4C3914B127571fDfDdB3B5caCE6a9428DB0183b
+
+## Status
+All contracts deployed and operational ✅
+Pool managers registered with Vault ✅

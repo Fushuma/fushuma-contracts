@@ -55,11 +55,13 @@ fushuma-contracts/
 - **GrantGauge**: `0x0D6833778cf1fa803D21075b800483F68f57A153`
 
 ### DeFi Core Contracts (Production ✅)
-**Deployed**: November 16, 2025 (Paris EVM Compatible)
+**Deployed**: November 20, 2025 (Shanghai EVM Compatible - Storage-as-Transient Pattern)
 
-- **Vault**: `0x4FB212Ed5038b0EcF2c8322B3c71FC64d66073A1`
-- **CLPoolManager**: `0x9123DeC6d2bE7091329088BA1F8Dc118eEc44f7a`
-- **BinPoolManager**: `0x3014809fBFF942C485A9F527242eC7C5A9ddC765`
+- **Vault**: `0x9c6bAfE545fF2d31B0abef12F4724DCBfB08c839`
+- **CLPoolManager**: `0x2D691Ff314F7BB2Ce9Aeb94d556440Bb0DdbFe1e`
+- **BinPoolManager**: `0xD5F370971602DB2D449a6518f55fCaFBd1a51143`
+
+**⚠️ Important**: These contracts have been redeployed with Shanghai EVM adaptations using the Storage-as-Transient pattern. All periphery contracts need to be redeployed to work with the new core contracts.
 
 ### DeFi Periphery Contracts (Production ✅)
 **Deployed**: November 16, 2025 (Paris EVM Compatible)
@@ -79,7 +81,7 @@ fushuma-contracts/
 ### Supporting Contracts (Production ✅)
 - **Permit2**: `0x1d5E963f9581F5416Eae6C9978246B7dDf559Ff0`
 
-**Note**: All essential contracts are deployed and operational. MixedQuoter was skipped due to transient storage incompatibility with zkEVM+. All deployed contracts use Paris EVM compatible versions.
+**Note**: Core contracts have been redeployed with Shanghai EVM adaptations (November 20, 2025). Periphery contracts need to be redeployed to work with the new core contracts. The new implementation uses a Storage-as-Transient pattern for compatibility with Shanghai EVM specification.
 
 ### Future Enhancements (Optional)
 The following contracts are optional enhancements that may be added in the future:
@@ -367,4 +369,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **⚠️ Important**: Smart contracts have NOT been professionally audited yet. A comprehensive security audit is highly recommended before handling significant value.
 
-**Last Updated**: November 16, 2025
+**Last Updated**: November 20, 2025
