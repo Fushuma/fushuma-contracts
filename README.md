@@ -169,25 +169,11 @@ forge test
 
 **All essential smart contracts are deployed and fully operational!**
 
-## Deployment Guides
+## Deployment Information
 
-### Governance Contracts
+All contracts have been deployed to Fushuma zkEVM+ Mainnet. See [FINAL_DEPLOYMENT_REPORT.md](FINAL_DEPLOYMENT_REPORT.md) for complete deployment details.
 
-See [DEPLOYMENT_README.md](DEPLOYMENT_README.md) for detailed governance deployment information.
-
-**Status**: ✅ All governance contracts deployed and operational
-
-### DeFi Core Contracts
-
-See [DEFI_DEPLOYMENT.md](DEFI_DEPLOYMENT.md) for detailed DeFi deployment information.
-
-**Status**: ✅ Core contracts (Vault, CLPoolManager, BinPoolManager) deployed
-
-### Periphery Contracts
-
-**Status**: ⏳ Pending deployment - requires infinity-periphery integration
-
-The periphery contracts (routers, quoters, position managers) are next in the deployment pipeline and require integration with the PancakeSwap V4 infinity-periphery repository.
+For programmatic access to contract addresses, see [deployments/fushuma-mainnet.json](deployments/fushuma-mainnet.json).
 
 ## Contract Categories
 
@@ -211,7 +197,6 @@ The governance system implements a sophisticated voting mechanism with the follo
 - `GrantGauge.sol` - Grant gauge implementation
 
 **Documentation**:
-- [Deployment Info](DEPLOYMENT_README.md)
 - [Architecture](docs/GOVERNANCE_ARCHITECTURE.md)
 - [Deployment Guide](docs/GOVERNANCE_DEPLOYMENT.md)
 - [Integration Guide](docs/GOVERNANCE_INTEGRATION.md)
@@ -223,7 +208,7 @@ The governance system implements a sophisticated voting mechanism with the follo
 - Standard WETH9 implementation adapted for FUMA
 - Enables native FUMA to be used in DeFi protocols
 
-### DeFi Contracts - FumaSwap V4 ✅ Core Deployed
+### DeFi Contracts - FumaSwap V4 ✅ Fully Deployed
 
 FumaSwap V4 is a decentralized exchange built on PancakeSwap V4 (Infinity) architecture.
 
@@ -232,23 +217,14 @@ FumaSwap V4 is a decentralized exchange built on PancakeSwap V4 (Infinity) archi
 - `CLPoolManager.sol` - Concentrated liquidity pool manager
 - `BinPoolManager.sol` - Bin-based pool manager
 
-**Periphery Contracts** (⏳ Pending):
+**Periphery Contracts** (✅ Deployed):
 - `CLPositionManager.sol` - Concentrated liquidity position management
-- `InfinityRouter.sol` - Universal router for swaps and liquidity
+- `BinPositionManager.sol` - Bin pool position management
+- `FumaInfinityRouter.sol` - Universal router for swaps and liquidity
 - `CLQuoter.sol` - Price quotes for CL pools
-- `MixedQuoter.sol` - Cross-pool quote aggregation
-- `BatchRouter.sol` - Batch operations
+- `BinQuoter.sol` - Price quotes for Bin pools
 
-**Custom Hooks** (⏳ Pending):
-- `FumaDiscountHook.sol` - Dynamic fee discounts for FUMA holders
-- `LaunchpadHook.sol` - Integration with Fushuma Launchpad
-
-**Status**: ⚠️ Core deployed, periphery pending - NOT audited yet
-
-**Documentation**:
-- [DeFi Deployment](DEFI_DEPLOYMENT.md)
-- [Production Readiness](DEFI_PRODUCTION_READINESS.md)
-- [Deployment Checklist](DEPLOYMENT_CHECKLIST.md)
+**Status**: ✅ Fully deployed - NOT audited yet
 
 ## Testing
 
@@ -290,13 +266,12 @@ If you discover a security vulnerability, please email: security@fushuma.com
 
 ## Documentation
 
-- [Deployment Summary](DEPLOYMENT_SUMMARY.md) - Overall deployment status and plan
-- [DeFi Deployment](DEFI_DEPLOYMENT.md) - DeFi contracts deployment info
-- [Governance Deployment](DEPLOYMENT_README.md) - Governance contracts deployment info
+- [Final Deployment Report](FINAL_DEPLOYMENT_REPORT.md) - Complete deployment details
 - [Contract Status](docs/CONTRACT_STATUS.md) - Current deployment status
 - [Security Guidelines](docs/SECURITY.md) - Security best practices
 - [Governance Architecture](docs/GOVERNANCE_ARCHITECTURE.md) - Governance system design
 - [Governance Integration](docs/GOVERNANCE_INTEGRATION.md) - Integrate with governance
+- [FumaSwap Deployment](docs/FUMASWAP_DEPLOYMENT.md) - DeFi deployment guide
 
 ## Platform Status
 
