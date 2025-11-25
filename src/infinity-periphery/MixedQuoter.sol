@@ -233,6 +233,10 @@ contract MixedQuoter is IMixedQuoter, IPancakeV3SwapCallback, Multicall {
         if (numActions == 0) revert NoActions();
         if (numActions != params.length || numActions != paths.length - 1) revert InputLengthMismatch();
 
+        // Track pool hashes for cleanup when using shared context (Shanghai EVM compatibility)
+        bytes32[] memory poolHashesToClear = withContext ? new bytes32[](numActions) : new bytes32[](0);
+        uint256 poolHashCount = 0;
+
         for (uint256 actionIndex = 0; actionIndex < numActions; actionIndex++) {
             uint256 gasEstimateForCurAction;
             address tokenIn = paths[actionIndex];
@@ -250,6 +254,8 @@ contract MixedQuoter is IMixedQuoter, IPancakeV3SwapCallback, Multicall {
                 } else {
                     bool zeroForOne = tokenIn < tokenOut;
                     bytes32 poolHash = MixedQuoterRecorder.getV2PoolHash(tokenIn, tokenOut);
+                    // Track pool hash for cleanup
+                    poolHashesToClear[poolHashCount++] = poolHash;
                     // update v2 pool swap direction, only allow one direction in one transaction
                     MixedQuoterRecorder.setAndCheckSwapDirection(poolHash, zeroForOne);
                     (uint256 accAmountIn, uint256 accAmountOut) =
@@ -283,6 +289,8 @@ contract MixedQuoter is IMixedQuoter, IPancakeV3SwapCallback, Multicall {
                 } else {
                     bool zeroForOne = tokenIn < tokenOut;
                     bytes32 poolHash = MixedQuoterRecorder.getV3PoolHash(tokenIn, tokenOut, fee);
+                    // Track pool hash for cleanup
+                    poolHashesToClear[poolHashCount++] = poolHash;
                     // update v3 pool swap direction, only allow one direction in one transaction
                     MixedQuoterRecorder.setAndCheckSwapDirection(poolHash, zeroForOne);
                     (uint256 accAmountIn, uint256 accAmountOut) =
@@ -318,6 +326,8 @@ contract MixedQuoter is IMixedQuoter, IPancakeV3SwapCallback, Multicall {
                 // will execute all swap history of same infinity pool in one transaction if withContext is true
                 if (withContext) {
                     bytes32 poolHash = MixedQuoterRecorder.getInfiCLPoolHash(clParams.poolKey);
+                    // Track pool hash for cleanup
+                    poolHashesToClear[poolHashCount++] = poolHash;
                     bytes memory swapListBytes = MixedQuoterRecorder.getInfiPoolSwapList(poolHash);
                     IQuoter.QuoteExactSingleParams[] memory swapHistoryList;
                     uint256 swapHistoryListLength;
@@ -355,6 +365,8 @@ contract MixedQuoter is IMixedQuoter, IPancakeV3SwapCallback, Multicall {
                 // will execute all swap history of same infinity pool in one transaction if withContext is true
                 if (withContext) {
                     bytes32 poolHash = MixedQuoterRecorder.getInfiBinPoolHash(binParams.poolKey);
+                    // Track pool hash for cleanup
+                    poolHashesToClear[poolHashCount++] = poolHash;
                     bytes memory swapListBytes = MixedQuoterRecorder.getInfiPoolSwapList(poolHash);
                     IQuoter.QuoteExactSingleParams[] memory swapHistoryList;
                     uint256 swapHistoryListLength;
@@ -392,6 +404,8 @@ contract MixedQuoter is IMixedQuoter, IPancakeV3SwapCallback, Multicall {
                 } else {
                     bool zeroForOne = tokenIn < tokenOut;
                     bytes32 poolHash = MixedQuoterRecorder.getSSPoolHash(tokenIn, tokenOut);
+                    // Track pool hash for cleanup
+                    poolHashesToClear[poolHashCount++] = poolHash;
                     // update stable pool swap direction, only allow one direction in one transaction
                     MixedQuoterRecorder.setAndCheckSwapDirection(poolHash, zeroForOne);
                     (uint256 accAmountIn, uint256 accAmountOut) =
@@ -425,6 +439,14 @@ contract MixedQuoter is IMixedQuoter, IPancakeV3SwapCallback, Multicall {
                 revert UnsupportedAction(action);
             }
             gasEstimate += gasEstimateForCurAction;
+        }
+
+        // Clean up storage for Shanghai EVM compatibility
+        // This ensures no stale data persists between calls
+        if (withContext && poolHashCount > 0) {
+            for (uint256 i = 0; i < poolHashCount; i++) {
+                MixedQuoterRecorder.clearPoolData(poolHashesToClear[i]);
+            }
         }
 
         return (amountIn, gasEstimate);
